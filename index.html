@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Silvi Stefi — Art & Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}body{font-family:'Inter',-apple-system,sans-serif;background:#fff;color:#1d1d1f;line-height:1.6;overflow-x:hidden;}
+.ss-nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.72);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);transition:all 0.3s;}
+.ss-nav.scrolled{background:rgba(255,255,255,0.92);box-shadow:0 1px 0 rgba(0,0,0,0.1);}
+.ss-nav-logo{font-size:17px;font-weight:600;color:#1d1d1f;text-decoration:none;}.ss-nav-logo span{color:#6e6e73;font-weight:400;}
+.ss-nav-links{display:flex;align-items:center;gap:32px;list-style:none;}.ss-nav-links a{font-size:13px;color:#1d1d1f;text-decoration:none;transition:color 0.2s;}.ss-nav-links a:hover{color:#c0392b;}
+.ss-mobile-menu-btn{display:none;}.ss-mobile-nav{display:none;}
+.ss-hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 48px 80px;background:linear-gradient(180deg,#f5f5f7 0%,#fff 100%);position:relative;overflow:hidden;}
+.ss-hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(ellipse,rgba(200,50,20,0.07) 0%,transparent 70%);pointer-events:none;}
+.ss-hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#6e6e73;margin-bottom:20px;opacity:0;animation:fadeUp 0.9s 0.2s forwards;}
+.ss-hero-title{font-size:clamp(48px,8vw,96px);font-weight:700;line-height:1.05;letter-spacing:-0.03em;color:#1d1d1f;margin-bottom:24px;opacity:0;animation:fadeUp 0.9s 0.4s forwards;}
+.ss-hero-title em{font-style:normal;background:linear-gradient(135deg,#c0392b,#e84118,#f39c12);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ss-hero-sub{font-size:clamp(17px,2.5vw,21px);font-weight:300;color:#6e6e73;max-width:600px;line-height:1.6;margin-bottom:40px;opacity:0;animation:fadeUp 0.9s 0.6s forwards;}
+.ss-hero-cta{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 0.9s 0.8s forwards;}
+.ss-hero-image-wrap{margin-top:64px;width:100%;max-width:900px;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.15);opacity:0;animation:fadeUp 1.1s 1s forwards;}
+.ss-hero-image-wrap img{width:100%;height:520px;object-fit:cover;display:block;transition:transform 0.6s;}
+.ss-hero-image-wrap:hover img{transform:scale(1.02);}
+.ss-btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:#1d1d1f;color:#fff;border:none;border-radius:980px;font-size:15px;font-weight:500;font-family:inherit;cursor:pointer;text-decoration:none;transition:all 0.25s;box-shadow:0 4px 14px rgba(0,0,0,0.18);}
+.ss-btn-primary:hover{background:#3a3a3c;transform:scale(1.02);}
+.ss-btn-secondary{display:inline-flex;align-items:center;gap:6px;padding:14px 28px;background:rgba(255,255,255,0.8);color:#c0392b;border:1px solid rgba(0,0,0,0.12);border-radius:980px;font-size:15px;font-weight:500;font-family:inherit;cursor:pointer;text-decoration:none;transition:all 0.25s;}
+.ss-btn-secondary:hover{background:rgba(192,57,43,0.08);border-color:#c0392b;transform:scale(1.02);}
+.ss-label{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#c0392b;margin-bottom:16px;display:block;}
+.ss-heading{font-size:clamp(32px,5vw,56px);font-weight:700;line-height:1.1;letter-spacing:-0.025em;color:#1d1d1f;margin-bottom:20px;}
+.ss-body{font-size:17px;font-weight:300;line-height:1.75;color:#6e6e73;max-width:640px;}
+
+/* Portfolio Grid */
+.ss-featured{background:#f5f5f7;padding:120px 48px;}.ss-featured-inner{max-width:1200px;margin:0 auto;}
+.ss-featured-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px;flex-wrap:wrap;gap:20px;}
+.ss-portfolio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.ss-portfolio-card{border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,0.06);transition:transform 0.35s,box-shadow 0.35s;cursor:pointer;position:relative;aspect-ratio:1/1;}
+.ss-portfolio-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.15);}
+.ss-portfolio-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s;}.ss-portfolio-card:hover img{transform:scale(1.04);}
+.ss-card-overlay{position:absolute;bottom:0;left:0;right:0;padding:20px 24px;background:linear-gradient(transparent,rgba(0,0,0,0.6));color:#fff;opacity:0;transition:opacity 0.3s;}.ss-portfolio-card:hover .ss-card-overlay{opacity:1;}.ss-card-overlay p{font-size:14px;font-weight:500;letter-spacing:0.01em;}
+
+/* Project Detail Overlay */
+.ss-project-overlay{position:fixed;inset:0;z-index:1500;background:#fff;overflow-y:auto;transform:translateY(100%);opacity:0;transition:transform 0.45s cubic-bezier(0.22,1,0.36,1),opacity 0.35s;pointer-events:none;}
+.ss-project-overlay.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+.ss-project-overlay-header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,0.92);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px;}
+.ss-project-back{display:inline-flex;align-items:center;gap:8px;background:none;border:none;font-size:15px;font-weight:500;font-family:inherit;color:#c0392b;cursor:pointer;padding:8px 0;transition:opacity 0.2s;}.ss-project-back:hover{opacity:0.7;}
+.ss-project-back svg{width:20px;height:20px;}
+.ss-project-title-bar{font-size:17px;font-weight:600;color:#1d1d1f;}
+.ss-project-body{max-width:1200px;margin:0 auto;padding:48px 48px 80px;}
+.ss-project-body h2{font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-0.02em;color:#1d1d1f;margin-bottom:40px;}
+.ss-project-images{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+.ss-project-images img{width:100%;border-radius:12px;cursor:pointer;transition:transform 0.3s,box-shadow 0.3s;display:block;}
+.ss-project-images img:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.12);}
+
+.ss-stats{background:#1d1d1f;padding:80px 48px;text-align:center;}.ss-stats-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}
+.ss-stat-num{font-size:56px;font-weight:700;letter-spacing:-0.04em;color:#fff;line-height:1;margin-bottom:8px;}.ss-stat-label{font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:0.05em;text-transform:uppercase;}
+.ss-about{padding:120px 48px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.ss-about-image{border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.12);aspect-ratio:3/4;}.ss-about-image img{width:100%;height:100%;object-fit:cover;}
+.ss-process{padding:120px 48px;background:#fff;}.ss-process-inner{max-width:1200px;margin:0 auto;}
+.ss-process-header{text-align:center;margin-bottom:72px;}.ss-process-header .ss-body{max-width:540px;margin:0 auto;}
+.ss-process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+.ss-process-card{padding:40px 36px;border-radius:20px;background:#f5f5f7;transition:transform 0.3s,box-shadow 0.3s;}.ss-process-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.08);}
+.ss-process-icon{width:48px;height:48px;border-radius:14px;margin-bottom:24px;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.icon-red{background:linear-gradient(135deg,rgba(192,57,43,0.15),rgba(192,57,43,0.3));}.icon-orange{background:linear-gradient(135deg,rgba(243,156,18,0.15),rgba(243,156,18,0.3));}.icon-teal{background:linear-gradient(135deg,rgba(0,199,190,0.15),rgba(0,199,190,0.3));}
+.ss-process-card h3{font-size:19px;font-weight:600;color:#1d1d1f;margin-bottom:12px;}.ss-process-card p{font-size:15px;font-weight:300;color:#6e6e73;line-height:1.65;}
+.ss-contact{padding:120px 48px;max-width:800px;margin:0 auto;text-align:center;}.ss-contact-email{display:block;font-size:17px;color:#c0392b;text-decoration:none;margin-bottom:48px;}
+.ss-form{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left;}.ss-form-full{grid-column:span 2;}
+.ss-form-group{display:flex;flex-direction:column;gap:8px;}.ss-form-group label{font-size:12px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:#6e6e73;}
+.ss-form-group input,.ss-form-group textarea{padding:14px 18px;border:1px solid rgba(0,0,0,0.12);border-radius:12px;font-size:15px;font-family:inherit;background:#f5f5f7;color:#1d1d1f;outline:none;resize:none;transition:all 0.2s;}
+.ss-form-group input:focus,.ss-form-group textarea:focus{border-color:#c0392b;background:#fff;box-shadow:0 0 0 3px rgba(192,57,43,0.1);}.ss-form-group textarea{min-height:140px;}
+.ss-form-submit{grid-column:span 2;display:flex;justify-content:center;margin-top:8px;}
+.ss-footer{padding:40px 48px;border-top:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.ss-footer p{font-size:13px;color:#aeaeb2;}.ss-footer-links{display:flex;gap:24px;list-style:none;}.ss-footer-links a{font-size:13px;color:#aeaeb2;text-decoration:none;transition:color 0.2s;}.ss-footer-links a:hover{color:#1d1d1f;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+.ss-reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s,transform 0.7s;}.ss-reveal.visible{opacity:1;transform:translateY(0);}
+
+/* Lightbox */
+.ss-lightbox{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}.ss-lightbox.open{opacity:1;pointer-events:auto;}
+.ss-lightbox-img{max-width:88vw;max-height:82vh;border-radius:12px;object-fit:contain;transition:opacity 0.3s;box-shadow:0 20px 80px rgba(0,0,0,0.5);}
+.ss-lightbox-caption{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);color:#fff;font-size:15px;font-weight:500;letter-spacing:0.02em;opacity:0.85;}
+.ss-lightbox-close{position:absolute;top:24px;right:28px;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;opacity:0.7;transition:opacity 0.2s;line-height:1;}.ss-lightbox-close:hover{opacity:1;}
+.ss-lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:28px;width:52px;height:52px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;backdrop-filter:blur(8px);}.ss-lightbox-nav:hover{background:rgba(255,255,255,0.25);}
+.ss-lightbox-prev{left:24px;}.ss-lightbox-next{right:24px;}
+.ss-lightbox-counter{position:absolute;top:28px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.5);font-size:13px;font-weight:500;}
+
+@media(max-width:1024px){
+.ss-portfolio-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:768px){
+.ss-nav{padding:0 20px;height:56px;}
+.ss-nav-links{display:none;}
+.ss-mobile-menu-btn{display:flex!important;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;}.ss-mobile-menu-btn span{display:block;width:22px;height:2px;background:#1d1d1f;border-radius:2px;transition:all 0.3s;}
+.ss-mobile-nav{display:block!important;position:fixed;top:56px;left:0;right:0;background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);padding:16px 24px 24px;border-bottom:1px solid rgba(0,0,0,0.08);transform:translateY(-100%);opacity:0;transition:all 0.3s;pointer-events:none;z-index:999;}.ss-mobile-nav.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+.ss-mobile-nav a{display:block;padding:14px 0;font-size:16px;font-weight:500;color:#1d1d1f;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.06);}.ss-mobile-nav a:last-child{border-bottom:none;}
+.ss-hero{padding:100px 20px 60px;min-height:auto;}
+.ss-hero-title{margin-bottom:16px;}
+.ss-hero-sub{font-size:16px;margin-bottom:28px;}
+.ss-hero-cta{flex-direction:column;width:100%;}.ss-hero-cta a{width:100%;justify-content:center;}
+.ss-hero-image-wrap{margin-top:40px;border-radius:14px;}.ss-hero-image-wrap img{height:280px;}
+.ss-featured,.ss-process{padding:80px 20px;}
+.ss-about{padding:80px 20px;grid-template-columns:1fr;gap:40px;}
+.ss-contact{padding:80px 20px;}
+.ss-featured-header{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:40px;}
+.ss-portfolio-grid{grid-template-columns:repeat(2,1fr);gap:14px;}
+.ss-stats{padding:60px 20px;}.ss-stats-inner{grid-template-columns:1fr;gap:32px;}.ss-stat-num{font-size:44px;}
+.ss-process-grid{grid-template-columns:1fr;gap:16px;}.ss-process-card{padding:28px 24px;}
+.ss-form{grid-template-columns:1fr;}.ss-form-full,.ss-form-submit{grid-column:span 1;}
+.ss-footer{padding:32px 20px;flex-direction:column;text-align:center;gap:12px;}
+.ss-lightbox-nav{width:40px;height:40px;font-size:22px;}.ss-lightbox-prev{left:12px;}.ss-lightbox-next{right:12px;}
+.ss-lightbox-img{max-width:94vw;max-height:75vh;border-radius:8px;}
+.ss-lightbox-caption{bottom:20px;font-size:13px;}
+.ss-lightbox-close{top:16px;right:16px;font-size:28px;}
+.ss-lightbox-counter{top:18px;font-size:12px;}
+.ss-project-overlay-header{padding:0 20px;height:56px;}
+.ss-project-body{padding:32px 20px 60px;}
+.ss-project-images{grid-template-columns:1fr;gap:12px;}
+}
+@media(max-width:480px){
+.ss-portfolio-grid{grid-template-columns:1fr;gap:14px;}
+.ss-portfolio-card{aspect-ratio:4/3;}
+}
+</style>
+</head>
+<body>
+<nav class="ss-nav" id="ss-nav"><a class="ss-nav-logo" href="#home">silvi<span>stefi</span></a><ul class="ss-nav-links"><li><a href="#home">Home</a></li><li><a href="#portfolio">Works</a></li><li><a href="#about">About</a></li><li><a href="#process">Philosophy</a></li><li><a href="#contact">Contact</a></li></ul><button class="ss-mobile-menu-btn" id="ss-menu-btn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+<div class="ss-mobile-nav" id="ss-mobile-nav"><a href="#home">Home</a><a href="#portfolio">Works</a><a href="#about">About</a><a href="#process">Philosophy</a><a href="#contact">Contact</a></div>
+<section id="home" class="ss-hero"><span class="ss-hero-eyebrow">Architect · Artist · Washington DC</span><h1 class="ss-hero-title">Art that<br><em>moves you</em></h1><p class="ss-hero-sub">Bold, tactile, luminous paintings that transform space. Each work a landscape of color, texture, and light.</p><div class="ss-hero-cta"><a class="ss-btn-primary" href="#portfolio">Explore Works</a><a class="ss-btn-secondary" href="#contact">Commission a Piece</a></div><div class="ss-hero-image-wrap"><img src="https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1586135561634-6HMF8SJ827WC6CUNQRQO/Magical+Lightning+Overall+jpg+redo+final.jpg?format=1500w" alt="Magical Lightning"/></div></section>
+
+<section id="portfolio" class="ss-featured"><div class="ss-featured-inner"><div class="ss-featured-header ss-reveal"><div><span class="ss-label">Full Portfolio</span><h2 class="ss-heading" style="margin-bottom:0">All Projects</h2></div><p class="ss-body" style="margin-bottom:0">24 original painting series — click to explore each project</p></div><div class="ss-portfolio-grid ss-reveal" id="portfolio-grid"></div></div></section>
+
+<!-- Project Detail Overlay -->
+<div class="ss-project-overlay" id="ss-project-overlay">
+<div class="ss-project-overlay-header">
+<button class="ss-project-back" id="project-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg> Back</button>
+<span class="ss-project-title-bar" id="project-title-bar"></span>
+</div>
+<div class="ss-project-body">
+<h2 id="project-detail-title"></h2>
+<div class="ss-project-images" id="project-images"></div>
+</div>
+</div>
+
+<section class="ss-stats"><div class="ss-stats-inner"><div class="ss-reveal"><div class="ss-stat-num">180<span style="font-size:32px;color:rgba(255,255,255,0.4)">+</span></div><div class="ss-stat-label">Original Works</div></div><div class="ss-reveal"><div class="ss-stat-num">10<span style="font-size:32px;color:rgba(255,255,255,0.4)">+</span></div><div class="ss-stat-label">Years Creating</div></div><div class="ss-reveal"><div class="ss-stat-num">100<span style="font-size:32px;color:rgba(255,255,255,0.4)">%</span></div><div class="ss-stat-label">Commission Based</div></div></div></section>
+<section id="about"><div class="ss-about"><div class="ss-about-image ss-reveal"><img src="silvi-about.jpeg" alt="Silvi Stefi"/></div><div class="ss-about-content ss-reveal"><span class="ss-label">About Silvi</span><h2 class="ss-heading">Architect by training.<br>Artist by soul.</h2><p class="ss-body">Silvi is an architect and artist in Washington DC who animates her surroundings by creating positive, innovative and inspiring work. She pursued her love of design at the University of Virginia, earning her Bachelor and Master's degrees in Architecture.</p><p class="ss-body" style="margin-top:16px">Late nights and weekends find her hard at work in her apartment-turned-studio, pouring her love of color, texture, and movement into works of a different scale.</p><div style="margin-top:32px"><a class="ss-btn-primary" href="#contact">Get in Touch</a></div></div></div></section>
+<section id="process" class="ss-process"><div class="ss-process-inner"><div class="ss-process-header ss-reveal"><span class="ss-label">Creative Philosophy</span><h2 class="ss-heading">How I work</h2><p class="ss-body">Drawing inspiration from the commonplace — objects, nature, people, and emotions — every painting tells a deeply personal story through abstraction and texture.</p></div><div class="ss-process-grid"><div class="ss-process-card ss-reveal"><div class="ss-process-icon icon-red">🎨</div><h3>Color & Texture</h3><p>Each work is built layer by layer into a rich tactile landscape using a variety of materials, recyclables, natural elements and found objects.</p></div><div class="ss-process-card ss-reveal"><div class="ss-process-icon icon-orange">✦</div><h3>Bold Abstraction</h3><p>Characterized by the purposeful abstraction of contemporary design married with the richness of traditional fine art.</p></div><div class="ss-process-card ss-reveal"><div class="ss-process-icon icon-teal">◈</div><h3>Custom Commissions</h3><p>Every commissioned work begins with a conversation. Silvi collaborates closely to create pieces that feel personal, permanent, and profound.</p></div></div></div></section>
+<section id="contact" class="ss-contact ss-reveal"><span class="ss-label">Get in Touch</span><h2 class="ss-heading">Commission a work</h2><p class="ss-body" style="max-width:100%;margin:0 auto 16px">All art pieces are commission-based. I'd love to create something uniquely yours.</p><a href="mailto:silvistefiart@gmail.com" class="ss-contact-email">silvistefiart@gmail.com</a><form class="ss-form" id="cf"><div class="ss-form-group"><label>First Name</label><input type="text" placeholder="Jane" required/></div><div class="ss-form-group"><label>Last Name</label><input type="text" placeholder="Smith" required/></div><div class="ss-form-group ss-form-full"><label>Email</label><input type="email" placeholder="jane@example.com" required/></div><div class="ss-form-group ss-form-full"><label>Subject</label><input type="text" placeholder="Commission inquiry" required/></div><div class="ss-form-group ss-form-full"><label>Message</label><textarea placeholder="Tell me about your vision..." required></textarea></div><div class="ss-form-submit"><button type="submit" class="ss-btn-primary">Send Message</button></div></form></section>
+<div class="ss-lightbox" id="ss-lightbox"><button class="ss-lightbox-close" id="lb-close">&times;</button><button class="ss-lightbox-nav ss-lightbox-prev" id="lb-prev">&#8249;</button><button class="ss-lightbox-nav ss-lightbox-next" id="lb-next">&#8250;</button><div class="ss-lightbox-counter" id="lb-counter"></div><img class="ss-lightbox-img" id="lb-img" src="" alt=""/><div class="ss-lightbox-caption" id="lb-caption"></div></div>
+<footer class="ss-footer"><p>2026 Silvi Stefi. All rights reserved.</p><ul class="ss-footer-links"><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#portfolio">Portfolio</a></li><li><a href="mailto:silvistefiart@gmail.com">Contact</a></li></ul></footer>
+<script>
+// Portfolio Data
+var portfolioData = [
+{title:"Midnight Rainbow",slug:"midnightrainbow",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487988754390-898B4BZ0VK82U4ARWVDU/IMG_2958.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487991550024-I62RFRV9LFHJ2QWBVKW4/Midnight+Rainbow+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487988817267-YJ7LUH5SYBD6WGR8DHCT/IMG_2958.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487988913010-SSWNQHCAS4MO676NBKZX/IMG_2770.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487988917335-3MT7G7QJZR4RME5KO7TT/IMG_2773.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487988957751-C0RMST54UY3IWFKSHWQJ/IMG_2775.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487989015368-EC30CN9H4A864HQ8PEU8/IMG_2776.jpg?format=1500w"]},
+{title:"Still Garden",slug:"schwane",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487905731020-JO9H3WNIOJBTC9ZFYSLW/IMG_3850.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487905860093-2SLMGR0WNFM6WJI0IBJJ/Still+Garden+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487905731020-JO9H3WNIOJBTC9ZFYSLW/IMG_3850.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487905935785-TF3O5K8JLXZEKH3GXN9V/IMG_3849.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487905947937-J1P20KNQYURP08G1G18P/IMG_3847.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487905970543-KGJEJD2R3IVX1M1RB6BH/IMG_3845.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487905984437-9FKX9ON2T10KXVPMH1ML/IMG_3846.jpg?format=1500w"]},
+{title:"Mystic Heart",slug:"mystic-heart",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1585715060117-U0XQMCWXEI0V78M80JL1/IMG_4253.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1585715199254-B3RF8BZ6WG54CHWKMZFE/IMG_4253.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1585715060117-U0XQMCWXEI0V78M80JL1/IMG_4253.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1585715232371-BQRQB2M54PW8ECP3LWNR/IMG_4246.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1585715243754-VXQWSKF2YKFVUHJ6HFEX/IMG_4247.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1585715252804-6V4W80OQMWZ1WZ6VFRPZ/IMG_4248.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1585715262362-33RG2O3T8E7TN5LFBHAW/IMG_4249.jpg?format=1500w"]},
+{title:"Fireworks",slug:"fireworks",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487907425110-S4KUHOZEKPLCKFNXA20B/IMG_3992.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487907618710-Z5WFKNUUDDGVHBNOWU7S/Fireworks+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487907425110-S4KUHOZEKPLCKFNXA20B/IMG_3992.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487907499143-A57DQHF3DPH5MFYPWP1X/IMG_3994.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487907531938-XPCF3NCQC27B5YJRJK21/IMG_3995.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487907547870-JOL2A26W5C2HWW6XI2BE/IMG_3996.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1487907577906-M62TSBMQXJJCQMQZ77DM/IMG_3997.jpg?format=1500w"]},
+{title:"Morning Frost",slug:"morning-frost",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1586135116753-F0TWTJGXB84TXDAENRJL/Morning+Frost+Overall+Final.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1586135116753-F0TWTJGXB84TXDAENRJL/Morning+Frost+Overall+Final.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1586135148069-STPOBZL5N8DG9KSE28BY/IMG_4198.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1586135159893-Z8MJVTGAOBTTL4WE1DDV/IMG_4197.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1586135175050-1P2VKN4FN6K6UTE4XXQT/IMG_4199.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1586135187025-9RFG99EA1V17YRRHE7YA/IMG_4200.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1586135196917-KZRGFPTFG0HD0GDLCEXL/IMG_4201.jpg?format=1500w"]},
+{title:"Glazed Dawn",slug:"glazeddawn",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590280499775-9NFHYG6AD6SYE7Y2IHM2/Glazed+Dawn+Overall+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590280499775-9NFHYG6AD6SYE7Y2IHM2/Glazed+Dawn+Overall+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590280520076-UWG8DR48JQVS77UFBZNN/IMG_5221.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590280530879-DCZQGLCM0C3HQQM25ELE/IMG_5222.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590280541792-L6G7FKRBQE2VH45FKZB1/IMG_5223.jpg?format=1500w"]},
+{title:"Warm Frost",slug:"warmfrost",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281253395-0NCSCAPJX2V2Z91FG8W1/Warm+Frost+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281253395-0NCSCAPJX2V2Z91FG8W1/Warm+Frost+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281279073-7VH1MTKTLBI7BGIHHBZV/IMG_5232.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281289920-M3BWKP2AJGTJQLJW1V3X/IMG_5230.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281303505-WWPBPUNXQK40E3ZXVQFY/IMG_5231.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281316107-GU1H7CQNDZC9U18VDBRW/IMG_5229.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281327165-IZ1HMCYQQGXU1K7TH07J/IMG_5228.jpg?format=1500w"]},
+{title:"Smudged Waterfall",slug:"smudged-waterfall",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281660989-K2CJ4O3PKCJKFKZH8BNT/Smudged+Waterfall+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281660989-K2CJ4O3PKCJKFKZH8BNT/Smudged+Waterfall+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281693610-SJMHOWWFUPRZH7QKPXCQ/IMG_5237.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281703893-82DJA7NDTXQWPOWP05AZ/IMG_5238.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281716508-LDG9GOYY5U5T2DXWFJ4T/IMG_5239.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281725942-FK7KAG6VDEWWKSMEKDZY/IMG_5240.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590281735870-TK26V3YM5SXBJ7C04SQA/IMG_5236.jpg?format=1500w"]},
+{title:"Satin Firefly",slug:"satin-firefly-1",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590282157178-A55PJTQVKX9X18PYCX1R/Satin+Firefly+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590282157178-A55PJTQVKX9X18PYCX1R/Satin+Firefly+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590282193499-BKDV8OG4D2D4DB7V29K4/IMG_5243.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590282210259-22Q1WO6H1G2DVWLDDKUH/IMG_5245.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590282221367-7RLFDHG5MM4K9PUY2SQX/IMG_5244.jpg?format=1500w"]},
+{title:"Firing Sun",slug:"firing-sun",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590282540455-H7R8AKXUAHSTHYNQ9QV3/Firing+Sun+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590282540455-H7R8AKXUAHSTHYNQ9QV3/Firing+Sun+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590282575605-T9MM7CZ88L8IBFZP6SHS/IMG_5249.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590282585832-KDX1Q2R47O06L2KO58XG/IMG_5248.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590282596698-GCMPV3JFUVTTQYCIFXFK/IMG_5250.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590282607408-6PQFDX6KHNRDHBHQPG1L/IMG_5251.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590282619367-5RU4B4AOJXIVSQCXHFAY/IMG_5252.jpg?format=1500w"]},
+{title:"Vivid Twilight",slug:"vivid-twilight",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283067073-B6QMDG4P2DA4CL4LF4UJ/Vivid+Twilight+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283067073-B6QMDG4P2DA4CL4LF4UJ/Vivid+Twilight+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283093267-7N6RBWL95O6YVXNTHX10/IMG_5253.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283104099-3YCAIF03YJ58F90SNFIH/IMG_5254.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283113869-K0WF5UL8I3E7W8M9V6W1/IMG_5255.jpg?format=1500w"]},
+{title:"Sunset Waters",slug:"sunsetwaters",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283523327-4KAV0BSNWRJFLQPZ6K47/Sunset+Waters+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283523327-4KAV0BSNWRJFLQPZ6K47/Sunset+Waters+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283554478-SP10OLIBXDVUXMF2HMV1/IMG_5258.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283565091-F84G4U1TVXP6F6GKMWJV/IMG_5257.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283578012-2N3L8UF2PTA9RDQ3VT7O/IMG_5259.jpg?format=1500w"]},
+{title:"Firing Storm",slug:"firing-storm",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283834174-6D9W4SOXHD4S5D07VJ4E/Firing+Storm+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283834174-6D9W4SOXHD4S5D07VJ4E/Firing+Storm+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283868199-QQP3A8BCXKTI7G4CZJRA/IMG_5260.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283881164-M7X8OXA2OHO2PYRVF2GK/IMG_5261.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283891613-MU18H6TH9Z2P6WKN7J3P/IMG_5262.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590283903069-RBCHV4JLK2W86HDDLH8U/IMG_5263.jpg?format=1500w"]},
+{title:"Lustrous Meteor",slug:"lustrous-meteor",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590284199299-KP6AN8JFQBGDQJHFBF9U/Lustrous+Meteor+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590284199299-KP6AN8JFQBGDQJHFBF9U/Lustrous+Meteor+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590284230456-ADCRVD3A1AHEOKWQY9H2/IMG_5265.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590284241044-FPVF9GV23Y6QGCL12JEW/IMG_5266.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590284253362-GU5PY7G7F5GER6GDD7V6/IMG_5267.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590284264282-J4NJH1FKNR2FI9O5VH9K/IMG_5268.jpg?format=1500w"]},
+{title:"Auburn Sundown",slug:"auburn-sundown",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590284625783-T7GM96EPQJXSOWRXZ5DD/Auburn+Sundown+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590284625783-T7GM96EPQJXSOWRXZ5DD/Auburn+Sundown+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590284658127-B8CIXQNVP0UVV7MBQJ3K/IMG_5270.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590284669614-BFUIPZRXXL1MBSHLVBSO/IMG_5271.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590284680455-Y3TX9LB2U96OFECF2QKE/IMG_5272.jpg?format=1500w"]},
+{title:"Frosted Mist",slug:"new-gallery-4",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285114785-4GHOXDW3B7HGQTQAEZRC/Frosted+Mist+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285114785-4GHOXDW3B7HGQTQAEZRC/Frosted+Mist+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285139969-WX3OYTXEOZW4GI2NG2WT/IMG_5274.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285150760-IMIVYPPYTQ73KQRX4G3F/IMG_5275.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285162200-3QR9IQ8JKLDW1CJOHCN3/IMG_5276.jpg?format=1500w"]},
+{title:"Daring Essence",slug:"daring-essence",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285454620-LGHB63L4ZU9XYFXIJM0C/Daring+Essence+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285454620-LGHB63L4ZU9XYFXIJM0C/Daring+Essence+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285488297-9VVQAXY3Q2HRP7Q2J8NC/IMG_5278.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285499073-SWBRJUTMFVPHZJLZXXBQ/IMG_5279.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285509867-D9C4L8M1U5ZXSUNQ62EH/IMG_5280.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285520866-B0RVZFBFYDQZ6D3G27LR/IMG_5281.jpg?format=1500w"]},
+{title:"Daring Sky",slug:"daring-sky",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285855291-20E8PB9K9FE0WJKMZUJH/Daring+Sky+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285855291-20E8PB9K9FE0WJKMZUJH/Daring+Sky+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285887529-I10YKM0VBHILN5C93AOR/IMG_5284.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285898267-UK4ZOLCV5JUV42JI0WPH/IMG_5283.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285908825-7A8DY7N3IYY7EXQO4V0O/IMG_5285.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590285919832-O9WXQZL2UE9HKB0A7P3G/IMG_5286.jpg?format=1500w"]},
+{title:"Soothing Dusk",slug:"soothing-dusk",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286174416-E6Y3J82ELI3PD13K2HRK/Soothing+Dusk+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286174416-E6Y3J82ELI3PD13K2HRK/Soothing+Dusk+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286204720-LYGYMFXFRWVFQHFJF1C1/IMG_5288.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286215483-FDQXJ2E7JN3LK3NGFPK7/IMG_5289.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286226277-9G8L0L3FCAEHYLQK25TX/IMG_5290.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286235988-3QK1IW8I2QCN9VQHF9E7/IMG_5291.jpg?format=1500w"]},
+{title:"Striking Air",slug:"striking-air",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286549098-LT4D2DXSGW16VLQB28FQ/Striking+Air+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286549098-LT4D2DXSGW16VLQB28FQ/Striking+Air+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286585009-14KH21L5NNOFM2SC3LNT/IMG_5293.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286596137-1O8P0NJU46VN58DDZUVD/IMG_5294.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286607130-NLQTCQABQVQ1H6OEZXXE/IMG_5295.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286618147-H6GC7LZFBWSWP9ICD60T/IMG_5296.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590286629084-QHD3YYTGAYN5GIP87ZNB/IMG_5297.jpg?format=1500w"]},
+{title:"Fairaway Galaxy",slug:"new-gallery-5",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287061810-1L4HKTI3SC8O12RJT3JV/Faraway+Galaxy+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287061810-1L4HKTI3SC8O12RJT3JV/Faraway+Galaxy+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287098113-2VQBP7KPNP0GVRYYAPIF/IMG_5299.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287108802-6CWXKUEM2UU57KHN6LJQ/IMG_5300.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287119720-JY2UYXG1LPZSMGP1P3JB/IMG_5301.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287131076-G9SKAMQCTTMXIKVFZ3J2/IMG_5302.jpg?format=1500w"]},
+{title:"Crisp Leaves",slug:"new-gallery-54",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287447488-8T9SH4VS93HWPMR5YWW2/Crisp+Leaves+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287447488-8T9SH4VS93HWPMR5YWW2/Crisp+Leaves+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287474389-VMRR19U32QJLP1K1HWZN/IMG_5304.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287485019-YS0NUWIHXNB2PA4JI8KI/IMG_5305.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287495861-65G4EU6NCRRUWM39R53Z/IMG_5306.jpg?format=1500w"]},
+{title:"Sunny Skies",slug:"sunny-skies",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287796027-QJFR2M3TMQSQ2Y7VXF5P/Sunny+Skies+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287796027-QJFR2M3TMQSQ2Y7VXF5P/Sunny+Skies+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287834651-QIS2NUJEKDJ8Y8Q6R0BK/IMG_5308.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287845507-LPJL8N1SG3R5MT3WZCQP/IMG_5309.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287856233-7MFGQW5V5SPBR0BPQFH5/IMG_5310.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287866930-WEY2W7GH1EVXDJQZJ7J2/IMG_5311.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590287877765-WE8IV5RVP0ADQEAI7TPC/IMG_5312.jpg?format=1500w"]},
+{title:"Sunset Kiss",slug:"sunset-kiss",thumb:"https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590288244073-IPOCVHD4N4W4FSZJ2A3R/Sunset+Kiss+Overall.jpg?format=1500w",images:["https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590288244073-IPOCVHD4N4W4FSZJ2A3R/Sunset+Kiss+Overall.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590288283459-YNVG4BNYAGR21N6MY0GQ/IMG_5314.jpg?format=1500w","https://images.squarespace-cdn.com/content/v1/58acd4d1bebafba689f62df0/1590288295002-CKJCJJLV5XYDHZ8V9IAI/IMG_5315.jpg?format=1500w"]}
+];
+
+// Scroll nav
+window.addEventListener('scroll',function(){document.getElementById('ss-nav').classList.toggle('scrolled',window.scrollY>40);});
+
+// Scroll reveal
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.ss-reveal').forEach(function(el){obs.observe(el);});
+
+// Contact form
+document.getElementById('cf').addEventListener('submit',function(e){e.preventDefault();e.target.innerHTML='<p style="text-align:center;padding:40px;grid-column:span 2">Thank you — Silvi will be in touch soon.</p>';});
+
+// Mobile menu
+(function(){
+var btn=document.getElementById('ss-menu-btn'),nav=document.getElementById('ss-mobile-nav');
+btn.addEventListener('click',function(){nav.classList.toggle('open');});
+nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');});});
+})();
+
+// Build Portfolio Grid
+(function(){
+var grid=document.getElementById('portfolio-grid');
+portfolioData.forEach(function(project,idx){
+var card=document.createElement('div');
+card.className='ss-portfolio-card';
+card.setAttribute('data-index',idx);
+card.innerHTML='<img src="'+project.thumb+'" alt="'+project.title+'" loading="lazy"/><div class="ss-card-overlay"><p>'+project.title+'</p></div>';
+card.addEventListener('click',function(){openProject(idx);});
+grid.appendChild(card);
+});
+})();
+
+// Project Detail Overlay
+var overlay=document.getElementById('ss-project-overlay');
+var projectTitleBar=document.getElementById('project-title-bar');
+var projectDetailTitle=document.getElementById('project-detail-title');
+var projectImagesContainer=document.getElementById('project-images');
+var currentProjectImages=[];
+
+function openProject(idx){
+var project=portfolioData[idx];
+projectTitleBar.textContent=project.title;
+projectDetailTitle.textContent=project.title;
+projectImagesContainer.innerHTML='';
+currentProjectImages=project.images;
+project.images.forEach(function(src,i){
+var img=document.createElement('img');
+img.src=src;
+img.alt=project.title+' — Image '+(i+1);
+img.loading='lazy';
+img.addEventListener('click',function(){openLightbox(i);});
+projectImagesContainer.appendChild(img);
+});
+overlay.classList.add('open');
+overlay.scrollTop=0;
+document.body.style.overflow='hidden';
+}
+
+function closeProject(){
+overlay.classList.remove('open');
+document.body.style.overflow='';
+currentProjectImages=[];
+}
+
+document.getElementById('project-back').addEventListener('click',closeProject);
+
+// Lightbox
+(function(){
+var lb=document.getElementById('ss-lightbox');
+var lbImg=document.getElementById('lb-img');
+var lbCap=document.getElementById('lb-caption');
+var lbCounter=document.getElementById('lb-counter');
+var cur=0;
+
+window.openLightbox=function(i){
+cur=i;
+lbImg.src=currentProjectImages[i];
+lbImg.alt='Image '+(i+1);
+lbCap.textContent='';
+lbCounter.textContent=(i+1)+' / '+currentProjectImages.length;
+lb.classList.add('open');
+};
+
+function hide(){
+lb.classList.remove('open');
+}
+
+function next(){
+if(currentProjectImages.length===0)return;
+cur=(cur+1)%currentProjectImages.length;
+lbImg.src=currentProjectImages[cur];
+lbCounter.textContent=(cur+1)+' / '+currentProjectImages.length;
+}
+
+function prev(){
+if(currentProjectImages.length===0)return;
+cur=(cur-1+currentProjectImages.length)%currentProjectImages.length;
+lbImg.src=currentProjectImages[cur];
+lbCounter.textContent=(cur+1)+' / '+currentProjectImages.length;
+}
+
+document.getElementById('lb-close').addEventListener('click',hide);
+document.getElementById('lb-next').addEventListener('click',next);
+document.getElementById('lb-prev').addEventListener('click',prev);
+lb.addEventListener('click',function(e){if(e.target===lb)hide();});
+document.addEventListener('keydown',function(e){
+if(lb.classList.contains('open')){
+if(e.key==='Escape')hide();
+if(e.key==='ArrowRight')next();
+if(e.key==='ArrowLeft')prev();
+return;
+}
+if(overlay.classList.contains('open')){
+if(e.key==='Escape')closeProject();
+}
+});
+})();
+</script>
+</body>
+</html>
